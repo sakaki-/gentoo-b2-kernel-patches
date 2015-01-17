@@ -22,7 +22,7 @@ Patch | Function
 
 ## Installation
 
-This patchset is most easily installed via its custom Gentoo ebuild, for which please see my [gentoo-b2-kernel](https://github.com/sakaki-/gentoo-b2-kernel) project.
+This patchset is most easily installed via its custom Gentoo ebuild, for which please see my [gentoo-b2-overlay](https://github.com/sakaki-/gentoo-b2-overlay) project.
 
 > It has also been applied to the kernel used in my Gentoo live-USB for the B2 (available [here](https://github.com/sakaki-/gentoo-on-b2)).
 
