@@ -109,7 +109,7 @@
 +		envp [i++] = "HOME=/";
 +		envp [i++] = "PATH=/sbin:/bin:/usr/sbin:/usr/bin";
 +		printk(KERN_DEBUG "BUBBATWO: Invoking usermodehelper");
-+		ret=call_usermodehelper (argv [0], argv, envp, 0);
++		ret=call_usermodehelper (argv [0], argv, envp, UMH_WAIT_PROC);
 +		kfree (envp);
 +		b2_led_blink(LED_DEFAULT_FREQ);
 +
