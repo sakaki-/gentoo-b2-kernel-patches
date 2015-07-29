@@ -1,12 +1,12 @@
 # gentoo-b2-kernel-patches
-Patchset for Linux kernel 4.0.4 (from [gentoo-sources](https://wiki.gentoo.org/wiki/Kernel/Overview#General_purpose:_gentoo-sources)), for use with the Excito B2 miniserver
+Patchset for Linux kernel 4.1.3 (from [gentoo-sources](https://wiki.gentoo.org/wiki/Kernel/Overview#General_purpose:_gentoo-sources)), for use with the Excito B2 miniserver
 
 ## Description
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/excito/b2/Excito_b2.jpg" alt="Excito B2, aka Bubba|TWO" width="250px" align="right"/>
 This project contains a set of patches for the Linux kernel, enabling it to be used with the Excito B2 (aka Bubba|TWO) miniserver.
 
-Patches are currently provided for Linux version **4.0.4** (I may add support for further kernel versions in the future). Patches 0001, 0004 and 0005 are derived from those in Mouette's [community-b3-kernel](https://github.com/Excito/community-b3-kernel/tree/master/debian/patches) (thank you!), updated where necessary. Patch 0002 was created by running the device tree compiler (in reverse mode) on the `8313E21.dtb` file in the B2's `/boot` directory. Patch 0003 is my own.
+Patches are currently provided for Linux version **4.1.3** (I may add support for further kernel versions in the future). Patches 0001, 0004 and 0005 are derived from those in Mouette's [community-b3-kernel](https://github.com/Excito/community-b3-kernel/tree/master/debian/patches) (thank you!), updated where necessary. Patch 0002 was created by running the device tree compiler (in reverse mode) on the `8313E21.dtb` file in the B2's `/boot` directory. Patch 0003 is my own.
 
 The individual patches provided are listed below, together with their purpose:
 
@@ -26,7 +26,7 @@ This patchset is most easily installed via its custom Gentoo ebuild, for which p
 
 > It has also been applied to the kernel used in my Gentoo live-USB for the B2 (available [here](https://github.com/sakaki-/gentoo-on-b2)).
 
-However, there is nothing Gentoo-specific about this patchset, which may easily be applied to a vanilla 4.0.4 kernel source tree if you like, by means of the `patch` utility (see [these instructions](http://superuser.com/questions/324968/how-do-i-apply-a-patch-to-my-linux-kernel), for example).
+However, there is nothing Gentoo-specific about this patchset, which may easily be applied to a vanilla 4.1.3 kernel source tree if you like, by means of the `patch` utility (see [these instructions](http://superuser.com/questions/324968/how-do-i-apply-a-patch-to-my-linux-kernel), for example).
 
 > If you do this, please note that patches 0002 and 0003 should be applied at patchlevel 0 (this is for compatibility with Gentoo's `unipatch()`).
 
