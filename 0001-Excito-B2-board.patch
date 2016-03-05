@@ -35,7 +35,7 @@
 +
 +/* Mark this file for ident */
 +static char* ver="0.2";
-+static char* build=__DATE__ " " __TIME__;
++static char* build="0.2";
 +
 +#define DEVNAME "bubbatwo"
 +#define BUBBA_MAGIC 0xdeadbeef
