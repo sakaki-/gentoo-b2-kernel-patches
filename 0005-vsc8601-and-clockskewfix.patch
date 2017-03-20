@@ -1,13 +1,13 @@
 --- a/drivers/net/phy/Kconfig
 +++ b/drivers/net/phy/Kconfig
-@@ -56,9 +56,14 @@
- 	  Currently supports the cis8204
+@@ -310,9 +310,14 @@
+           Currently supports the Teranetics TN2020
  
  config VITESSE_PHY
--        tristate "Drivers for the Vitesse PHYs"
+-        tristate "Vitesse PHYs"
 -        ---help---
 -          Currently supports the vsc8244
-+	tristate "Drivers for the Vitesse PHYs"
++	tristate "Vitesse PHYs"
 +	---help---
 +	  Currently supports the vsc8244, vsc8601
 +
@@ -16,8 +16,8 @@
 +	---help---
 +	  Apply clock timing adjustments for vsc8601
  
- config SMSC_PHY
- 	tristate "Drivers for SMSC PHYs"
+ config XILINX_GMII2RGMII
+        tristate "Xilinx GMII2RGMII converter driver"
 --- a/drivers/net/phy/vitesse.c
 +++ b/drivers/net/phy/vitesse.c
 @@ -31,6 +31,11 @@
@@ -32,15 +32,15 @@
  /* Vitesse Interrupt Mask Register */
  #define MII_VSC8244_IMASK		0x19
  #define MII_VSC8244_IMASK_IEN		0x8000
-@@ -62,6 +67,7 @@
- /* Vitesse Extended Page Access Register */
- #define MII_VSC82X4_EXT_PAGE_ACCESS	0x1f
+@@ -66,6 +71,7 @@
+ #define MII_VSC8601_EPHY_CTL		0x17
+ #define MII_VSC8601_EPHY_CTL_RGMII_SKEW	(1 << 8)
  
 +#define PHY_ID_VSC8601			0x00070420
  #define PHY_ID_VSC8234			0x000fc620
  #define PHY_ID_VSC8244			0x000fc6c0
  #define PHY_ID_VSC8514			0x00070670
-@@ -164,6 +170,31 @@
+@@ -198,6 +204,31 @@
  	 */
  }
  
@@ -72,7 +72,7 @@
  /* vsc82x4_config_autocross_enable - Enable auto MDI/MDI-X for forced links
   * @phydev: target phy_device struct
   *
-@@ -224,6 +255,19 @@
+@@ -258,6 +289,18 @@
  /* Vitesse 82xx */
  static struct phy_driver vsc82xx_driver[] = {
  {
@@ -87,13 +87,12 @@
 +	.read_status    = &genphy_read_status,
 +	.ack_interrupt  = &vsc824x_ack_interrupt,
 +	.config_intr    = &vsc82xx_config_intr,
-+	.driver         = { .owner = THIS_MODULE,},
 +}, {
  	.phy_id         = PHY_ID_VSC8234,
  	.name           = "Vitesse VSC8234",
  	.phy_id_mask    = 0x000ffff0,
-@@ -326,6 +370,7 @@
- module_exit(vsc82xx_exit);
+@@ -352,6 +395,7 @@
+ module_phy_driver(vsc82xx_driver);
  
  static struct mdio_device_id __maybe_unused vitesse_tbl[] = {
 +	{ PHY_ID_VSC8601, 0x000ffff8 },
