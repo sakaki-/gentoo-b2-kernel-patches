@@ -1,0 +1,81 @@
+--- a/drivers/net/phy/Kconfig
++++ b/drivers/net/phy/Kconfig
+@@ -314,6 +314,11 @@
+         ---help---
+           Currently supports the vsc8244
+ 
++config VITESSE_PHY_8601_SKEW
++	bool "Enable skew timing to vsc8601"
++	---help---
++	  Apply clock timing adjustments for vsc8601
++
+ config XILINX_GMII2RGMII
+        tristate "Xilinx GMII2RGMII converter driver"
+        ---help---
+--- a/drivers/net/phy/vitesse.c
++++ b/drivers/net/phy/vitesse.c
+@@ -30,6 +30,10 @@
+ #define MII_VSC8244_EXTCON1_RX_SKEW_MASK	0x0300
+ #define MII_VSC8244_EXTCON1_TX_SKEW	0x0800
+ #define MII_VSC8244_EXTCON1_RX_SKEW	0x0200
++/* EXT_CON1 Register values for VSC8601 */
++#define MII_VSC8601_EXTCON1_INIT	0x0000
++#define MII_VSC8601_EXTCON1_SKEW	0x0100
++#define MII_VSC8601_EXTCON1_ACTIPHY	0x0020
+ 
+ /* Vitesse Interrupt Mask Register */
+ #define MII_VSC8244_IMASK		0x19
+@@ -141,6 +145,30 @@
+ 		return ret;
+ 
+ 	return genphy_config_init(phydev);
++}
++
++static int vsc8601_config_init_patched(struct phy_device *phydev)
++{
++	int err;
++	int extcon;
++
++	err = phy_write(phydev, MII_VSC8244_AUX_CONSTAT,
++					MII_VSC8244_AUXCONSTAT_INIT);
++
++	if (err < 0)
++		return err;
++
++#ifdef CONFIG_VITESSE_PHY_8601_SKEW
++	extcon = phy_read(phydev, MII_VSC8244_EXT_CON1);
++	if (err < 0)
++		return err;
++
++	extcon |= MII_VSC8601_EXTCON1_SKEW;
++
++	err = phy_write(phydev, MII_VSC8244_EXT_CON1, extcon);
++#endif
++
++	return err;
+ }
+ 
+ static int vsc824x_ack_interrupt(struct phy_device *phydev)
+@@ -304,11 +332,11 @@
+ }, {
+ 	.phy_id         = PHY_ID_VSC8601,
+ 	.name           = "Vitesse VSC8601",
+-	.phy_id_mask    = 0x000ffff0,
++	.phy_id_mask    = 0x000ffff8,
+ 	.features       = PHY_GBIT_FEATURES,
+ 	.flags          = PHY_HAS_INTERRUPT,
+-	.config_init    = &vsc8601_config_init,
+-	.config_aneg    = &genphy_config_aneg,
++	.config_init    = &vsc8601_config_init_patched,
++	.config_aneg    = &vsc82x4_config_aneg,
+ 	.read_status    = &genphy_read_status,
+ 	.ack_interrupt  = &vsc824x_ack_interrupt,
+ 	.config_intr    = &vsc82xx_config_intr,
+@@ -356,6 +384,7 @@
+ 	{ PHY_ID_VSC8244, 0x000fffc0 },
+ 	{ PHY_ID_VSC8514, 0x000ffff0 },
+ 	{ PHY_ID_VSC8574, 0x000ffff0 },
++	{ PHY_ID_VSC8601, 0x000ffff8 },
+ 	{ PHY_ID_VSC8662, 0x000ffff0 },
+ 	{ PHY_ID_VSC8221, 0x000ffff0 },
+ 	{ PHY_ID_VSC8211, 0x000ffff0 },
