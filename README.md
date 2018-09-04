@@ -1,12 +1,12 @@
 # gentoo-b2-kernel-patches
-Patchset for Linux kernel 4.9.16 (from [gentoo-sources](https://wiki.gentoo.org/wiki/Kernel/Overview#General_purpose:_gentoo-sources)), for use with the Excito B2 miniserver
+Patchset for Linux kernel 4.9.16 / 4.9.72 (from [gentoo-sources](https://wiki.gentoo.org/wiki/Kernel/Overview#General_purpose:_gentoo-sources)), for use with the Excito B2 miniserver
 
 ## Description
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/excito/b2/Excito_b2.jpg" alt="Excito B2, aka Bubba|TWO" width="250px" align="right"/>
 This project contains a set of patches for the Linux kernel, enabling it to be used with the Excito B2 (aka Bubba|TWO) miniserver.
 
-Patches are currently provided for (LTS) Linux version **4.9.16** (I may add support for further kernel versions in the future). Patches 0001, 0004 and 0005 are derived from those in Mouette's [community-b3-kernel](https://github.com/Excito/community-b3-kernel/tree/master/debian/patches) (thank you!), updated where necessary. Patch 0002 was created by running the device tree compiler (in reverse mode) on the `8313E21.dtb` file in the B2's `/boot` directory. Patch 0003 is my own.
+Patches are currently provided for (LTS) Linux version **4.9.16** (I may add support for further kernel versions in the future). These can also successfully be applied to (LTS) **4.9.72**. Patches 0001, 0004 and 0005 are derived from those in Mouette's [community-b3-kernel](https://github.com/Excito/community-b3-kernel/tree/master/debian/patches) (thank you!), updated where necessary. Patch 0002 was created by running the device tree compiler (in reverse mode) on the `8313E21.dtb` file in the B2's `/boot` directory. Patch 0003 is my own.
 
 The individual patches provided are listed below, together with their purpose:
 
